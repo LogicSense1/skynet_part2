@@ -19,12 +19,13 @@ def generate_rsa_key():
 def sign_file(f):
     # TODO: For Part 2, you'll use public key crypto here
     # The existing scheme just ensures the updates start with the line 'Caesar'
-    # This is naive -- replace it with something better!
+    # This is naive -- replace it with something better!secrets
     key = RSA.importKey(open('private.pem').read())
     h = SHA.new(f)
     signer = PKCS1_v1_5.new(key)
     signature = signer.sign(h)
-    return bytes(signature) + f
+    print(bytes(signature))
+    return bytes(signature) + '\n\n'.encode('ascii') + f
 
 
 if __name__ == "__main__":
