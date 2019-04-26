@@ -3,76 +3,16 @@ Welcome to SkyNet
 
 
 
-Usage: Peer to Peer (Echo)
-==========================
-(Client)
-==========================
-wentian@pop-os:~/Documents/ELEC5616_Skynet_Part_1$ python3 bot.py
-Listening on port 1337
-Waiting for connection...
-Enter command: p2p echo
-Finding another bot...
-Found bot on port 1338
-Shared hash: "4d4c9edaa3a55b815834b966fe6d3bacd9c1d209a967443bd1e6900525655849"
---------------------------------------
-Original data: "ECHO"
-Encrypted data: b'[\x03\xf2\xc1\xab\xe9\xd4\xa3W1\xd0\x08\xa9k\xc8\x05'
-Sending packet of length 16
-The HMAC using md5 is "d46e795f5e039d4e8b8571cc548dc989"
-The length of HMAC is 32
-timestamp is "1555428542.036479"
---------------------------------------
-Echo> Hello
-Original data: "Hello"
-Encrypted data: b'\xf6\xa1\x85\x15\xc0\x97\x81\x04\x9c\xc0\xf4+<\xf4\xe9L'
-Sending packet of length 16
-The HMAC using md5 is "6ebc88b0111c013b2bb19e8b96af2e7f"
-The length of HMAC is 32
-The nonce sending in package is "760243219464636751169689972325"
-timestamp is "1555428545.8647454"
---------------------------------------
-Echo> Goodbye
-Original data: "Goodbye"
-Encrypted data: b'"\xd0\x99\xb9\xdd\x9f>\x03l8\xbe\x1a?!\xb0\x97'
-Sending packet of length 16
-The HMAC using md5 is "b40103b676277b47832a3daf7249fbd8"
-The length of HMAC is 32
-The nonce sending in package is "111637977049904542973366634682"
-timestamp is "1555428555.9954221"
---------------------------------------
-
-
-(Server)
-===========================
-wentian@pop-os:~/Documents/ELEC5616_Skynet_Part_1$ python3 bot.py
+wentian@pop-os:~/Documents/skynet_part2$ python3 master_sign.py
+Which file in pastebot.net should be signed? secrets
+b'\xb1\x1cT:z\x1a\xef H\xeb\xee>\x08\xab#\xb2\x84\xfceH\xff!-\xec\x90\xd3\xe2>3\x0c\x05Y\xc3\xbb\x18\xea#\xe6_2\x9a\xb3G\xe5\xedks\x0e \x81\xe2\x1aa\x8f\xaeIWQ=\xffa\xbau#\x85\xa9\xaf\x0f\xac\x8e\x18\x19C\xf1\x1eR\xcd\x16\x9bF\x1a\x1f\xf4u\xcb\xd9\xc6P\xb0\x8b\xf6\x9b\xbeKM\x1e`,\xec\x00\x85\xce\x0e\xae\xed}\xaaW\n\xb0l`\x97\xce\x82^\xc01\xab\xb1d\xbf\tq7\xe5\x83\x8aC\xfa\x8e\xf2{\xc0x\xe4\x154G\x83\x1cd\xe4"\x00!\x89xj\xd5\xee\x8d\xd4\x88\xaf\xe8\x04\x18C\xdd\x87\x9a\xf1\xf7"\x9d\xd4.Qc\xcd\xcf\xb7\xcbK\tVnD\xdc\xea7\xefm\xc5\xda\x1dun<\x18}\xd7\xaeZ\xf5Vx\xbe\xb0\xe2s\xda\xe1)\x07\xde\xad\xcd8,H\x87\xf0\xd7\x81A\xac\xe6\xd1>\x01\xa7\xcf\x9c\x83O\x17\xf4\x9c\x14/%7\xc5q\xb0\x95\xf7E\xfd\\\x04L\xb8\x84\xf2\xcf\x1b\xea\xfd\x98\xa61>!'
+Signed file written to pastebot.net/secrets.signed
+=====================================================
+wentian@pop-os:~/Documents/skynet_part2$ python3 bot.py
 Port 1337 not available
-Listening on port 1338
+Port 1338 not available
+Listening on port 1339
 Waiting for connection...
-Enter command: Accepted a connection from ('127.0.0.1', 37672)...
-Waiting for connection...
-Shared hash: "4d4c9edaa3a55b815834b966fe6d3bacd9c1d209a967443bd1e6900525655849"
---------------------------------------
-Receiving packet of length 48
-Encrypted data: b'\xf6\xa1\x85\x15\xc0\x97\x81\x04\x9c\xc0\xf4+<\xf4\xe9L'
-MD5 received: "6ebc88b0111c013b2bb19e8b96af2e7f"
-MD5 calculated with received: "6ebc88b0111c013b2bb19e8b96af2e7f"
-The current nonce is "760243219464636751169689972325"
-The nonce received from client is "760243219464636751169689972325"
-Sending time: "1555428545.8647454"
-Received time: "1555428545.9058406"
-Difference of time: "0.04109525680541992"
-The data received correctly!
-ECHOING> Hello
---------------------------------------
-Receiving packet of length 48
-Encrypted data: b'"\xd0\x99\xb9\xdd\x9f>\x03l8\xbe\x1a?!\xb0\x97'
-MD5 received: "b40103b676277b47832a3daf7249fbd8"
-MD5 calculated with received: "b40103b676277b47832a3daf7249fbd8"
-The current nonce is "111637977049904542973366634682"
-The nonce received from client is "111637977049904542973366634682"
-Sending time: "1555428555.9954221"
-Received time: "1555428556.0378208"
-Difference of time: "0.042398691177368164"
-The data received correctly!
-ECHOING> Goodbye
+Enter command: download secrets.signed
+Stored the received file as secrets.signed
 

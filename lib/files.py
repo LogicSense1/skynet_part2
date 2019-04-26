@@ -43,7 +43,6 @@ def verify_file(f):
     key = RSA.importKey(open('public.pem').read())
     signature = lines[0]
     message = lines[-1]
-    print(lines)
     verifier = PKCS1_v1_5.new(key)
     h = SHA.new(message)
     if verifier.verify(h, signature):
