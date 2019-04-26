@@ -15,4 +15,47 @@ Listening on port 1339
 Waiting for connection...
 Enter command: download secrets.signed
 Stored the received file as secrets.signed
+=======================================================
+wentian@pop-os:~/Documents/skynet_part2$ python3 bot.py
+Port 1337 not available
+Listening on port 1338
+Waiting for connection...
+Enter command: Accepted a connection from ('127.0.0.1', 51690)...
+Waiting for connection...
+Shared hash: "a7f81749354f2ee71114b36f9333e75d8e3459d9d25b0830bd78acd5356afc39"
+--------------------------------------
+Receiving secrets.signed via P2P
+Stored the received file as secrets.signed
+Accepted a connection from ('127.0.0.1', 51728)...
+Waiting for connection...
+Shared hash: "177ab173f6e54f80538e557454f17d5be0df4aeb82d07f8c33b19270e4aa266a"
+--------------------------------------
+Receiving secrets.signed via P2P
+Stored the received file as secrets.signed
+
+You need to enter a command...
+Enter command: 
+
+==========================================================
+wentian@pop-os:~/Documents/skynet_part2$ python3 bot.py
+Listening on port 1337
+Waiting for connection...
+Enter command: p2p upload secrets.signed     
+That file doesn't exist in the botnet's filestore
+Enter command: download secrets.signed
+Stored the received file as secrets.signed
+Enter command: p2p upload secrets.signed 
+Finding another bot...
+Found bot on port 1338
+Shared hash: "90ce6952414581818365ba71ef19a9ee358b3614ee92ae00f5590876d7222591"
+--------------------------------------
+Sending secrets.signed via P2P
+Enter command: p2p upload secrets.signed 
+Finding another bot...
+Found bot on port 1338
+Shared hash: "a7f81749354f2ee71114b36f9333e75d8e3459d9d25b0830bd78acd5356afc39"
+--------------------------------------
+Sending secrets.signed via P2P
+
+==================================================================
 

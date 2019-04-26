@@ -7,10 +7,11 @@ from lib.p2p import find_bot, bot_server
 from lib.files import download_from_pastebot, filestore, p2p_upload_file, save_valuable, \
     upload_valuables_to_pastebot, valuables
 
+
 def p2p_upload(fn):
     # Check if the file exists before sending empty
     if fn not in filestore:
-        print("That file doesn't exist in the botp2pnet's filestore")
+        print("That file doesn't exist in the botnet's filestore")
         return
     sconn = find_bot()
     sconn.send(bytes("FILE", "ascii"))
@@ -52,7 +53,6 @@ if __name__ == "__main__":
     # Wait for a small amount of time so that the output
     # doesn't play around with our "command prompt"
     time.sleep(0.3)
-
     while 1:
         # Naive command loop
         # There are better ways to do this, but the code should be clear

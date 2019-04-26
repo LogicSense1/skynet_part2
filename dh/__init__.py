@@ -1,7 +1,8 @@
 from Crypto.Hash import SHA256
 from Crypto.Random import random
 from lib.helpers import read_hex
-
+from Crypto.PublicKey import RSA
+from Crypto import Random
 # Project TODO: Is this the best choice of prime? Why? Why not? Feel free to replacasddsae!
 
 # 1536 bit safe prime for Diffie-Hellman key exchange
@@ -45,3 +46,14 @@ def calculate_dh_secret(their_public, my_private):
 def calculate_iv(their_public, my_private):
     shared_secret = pow(their_public, my_private, prime)
     return shared_secret
+
+
+def generate_rsa_key():
+    random_generator = Random.new().read
+    rsa = RSA.generate(2048, random_generator)
+    private_pem = rsa.exportKey()
+    with open('private.pem', 'wb') as private_key_file:
+        private_key_file.write(private_pem)
+    public_pem = rsa.publickey().exportKey()
+    with open('public.pem', 'wb') as public_key_file:
+        public_key_file.write(public_pem)
