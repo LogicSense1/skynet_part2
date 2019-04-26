@@ -16,8 +16,10 @@ def decrypt_valuables(f):
     message = cipher.decrypt(f, sentinel)
     digest = SHA.new(message[:-dsize]).digest()
     decrypt_data = message[:-dsize]
+    lines = decrypt_data.split(bytes("\n", "ascii"))
     if digest == message[-dsize:]:
-        print(decrypt_data)
+        for i in lines:
+            print(i)
     else:
         print("Decryption failed")
 

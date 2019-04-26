@@ -59,3 +59,10 @@ Sending secrets.signed via P2P
 
 ==================================================================
 
+wentian@pop-os:~/Documents/skynet_part2$ python3 master_view.py 
+Which file in pastebot.net does the botnet master want to view? secrets
+b'Bitcoin: 1fnKyA83XJbxzZRHOs00IsXA0PMtCMUt'
+b'Bitcoin: 1pfTmREd5fqkh67H1QD9XtUrXJGlVrLxyMh'
+b'Bitcoin: 387aWrKZrMRaSFyQCCICV5rPabYZ9TQBOnA'
+
+
