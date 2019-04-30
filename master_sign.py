@@ -1,20 +1,21 @@
 import os
 from Crypto.Signature import PKCS1_v1_5
-from Crypto.Hash import SHA
+from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
-from Crypto import Random
-
 
 
 def sign_file(f):
     # TODO: For Part 2, you'll use public key crypto here
-    # The existing scheme just ensures the updates start with the line 'Caesar'
-    # This is naive -- replace it with something better!secrets
+    # first read the private key from the file to sign the file
     key = RSA.importKey(open('private.pem').read())
-    h = SHA.new(f)
+    # Calculate the SHA256 value for original file for signing
+    h = SHA256.new(f)
+    # define the object of PKCS1_v1_5 for signing
     signer = PKCS1_v1_5.new(key)
+    # use the private key to encrypt the hash for signing
     signature = signer.sign(h)
-    print(bytes(signature))
+    # return the signature followed by the data stream of original file
+    # use string '\n\n' for the program to identify the position to split the signed file into two parts
     return bytes(signature) + '\n\n'.encode('ascii') + f
 
 

@@ -3,6 +3,7 @@ from Crypto.Random import random
 from lib.helpers import read_hex
 from Crypto.PublicKey import RSA
 from Crypto import Random
+
 # Project TODO: Is this the best choice of prime? Why? Why not? Feel free to replacasddsae!
 
 # 1536 bit safe prime for Diffie-Hellman key exchange
@@ -18,6 +19,7 @@ C2007CB8 A163BF05 98DA4836 1C55D39A 69163FA8 FD24CF5F
 # Convert from the value supplied in the RFC to an integer
 prime = read_hex(raw_prime)
 
+
 # Project TODO: write the appropriate code to perform DH key exchange
 
 
@@ -32,7 +34,6 @@ def create_dh_key():
 def calculate_dh_secret(their_public, my_private):
     # Calculate the shared secret
     shared_secret = pow(their_public, my_private, prime)
-
     # Hash the value so that:
     # (a) There's no bias in the bits of the output
     #     (there may be bias if the shared secret is used raw)
@@ -48,10 +49,14 @@ def calculate_iv(their_public, my_private):
     return shared_secret
 
 
+# this function will be used once to create the public and private key pair
+# for the master used to sign or asymmetric encryption
 def generate_rsa_key():
     random_generator = Random.new().read
+    # use the public tools from pycrypto to create the key pair with the random seed
     rsa = RSA.generate(2048, random_generator)
     private_pem = rsa.exportKey()
+    # write private and public key to the .pem file
     with open('private.pem', 'wb') as private_key_file:
         private_key_file.write(private_pem)
     public_pem = rsa.publickey().exportKey()

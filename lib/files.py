@@ -1,15 +1,13 @@
 import os
 from Crypto.PublicKey import RSA
 from Crypto.Signature import PKCS1_v1_5 as sign_rsa
-from Crypto.Hash import SHA
+from Crypto.Hash import SHA256, SHA
 from Crypto.Cipher import PKCS1_v1_5 as encrypt_rsa
 # Instead of storing files on disk,
 # we'll save them in memory for simplicity
 filestore = {}
 # Valuable data to be sent to the botmaster
 valuables = []
-
-###
 
 
 def save_valuable(data):
@@ -18,9 +16,14 @@ def save_valuable(data):
 
 def encrypt_for_master(data):
     # Encrypt the file so it can only be read by the bot master
-    h = SHA.new(data)
+    # in order to make the file only readable for master bot, we use asymmetric encryption here
+    # first import the public key for RSA encryption
     key = RSA.importKey(open('public.pem').read())
+    # calculate the hash which will be used for RSA encryption
+    h = SHA.new(data)
+    # define the object of PKCS1_v1_5 as cipher
     cipher = encrypt_rsa.new(key)
+    # encrypt the data and the hash together as the ciphertext
     data = cipher.encrypt(data + h.digest())
     return data
 
@@ -41,17 +44,19 @@ def upload_valuables_to_pastebot(fn):
 def verify_file(f):
     # Verify the file was sent by the bot master
     # TODO: For Part 2, you'll use public key crypto here
-    # Naive verification by ensuring the first line has the "passkey"
+    # split the received file into the signature part and original file part
     lines = f.split(bytes("\n\n", "ascii"), 1)
-    key = RSA.importKey(open('public.pem').read())
     signature = lines[0]
     message = lines[-1]
+    # import public key from the key file
+    key = RSA.importKey(open('public.pem').read())
+    # define the object of PKCS1_v1_5 for verifying the signer
     verifier = sign_rsa.new(key)
-    h = SHA.new(message)
-    if verifier.verify(h, signature):
-        return True
-    else:
-        return False
+    # calculate the hash of original file for signing
+    h = SHA256.new(message)
+    # determine if the signer is expected by using the verify tool of pycrypto,
+    # which will return a boolean data
+    return verifier.verify(h, signature)
 
 
 def process_file(fn, f):
